@@ -4,6 +4,9 @@ import pkg_resources
 import networkx
 import networkx.readwrite.json_graph
 
+import random
+
+
 def plot_force_directed_graph(node1_node1_weight):
 
     # column names for node source and target, and edge attributes
@@ -27,11 +30,16 @@ def plot_force_directed_graph(node1_node1_weight):
     javascript_template = 'd3fdgraph.js'
     js_code = pkg_resources.resource_string(resource_package, javascript_template).decode('utf-8')
 
+    # generate random identifier for SVG element, to avoid name clashes if used multiple times in a notebook
+    random_id_string = str(random.randrange(1000000,9999999))
+    # replace placeholder in both html and js templates
+    html = html.replace('%%unique-id%%', random_id_string)
+    js_code = js_code.replace('%%unique-id%%', random_id_string)
+
     # substitute links and data
     js_code = js_code.replace('%%links%%', str(graph_json_links))
     js_code = js_code.replace('%%nodes%%', str(graph_json_nodes))
     js_code = js_code.replace('%%edge_attribute%%', link_edge_name)
-
 
     # display html in notebook cell
     IPython.core.display.display_html(IPython.core.display.HTML(html))

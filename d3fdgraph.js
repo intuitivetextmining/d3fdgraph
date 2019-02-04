@@ -50,7 +50,7 @@ require(["d3"], function(d3) {
     }
 
     // select HTML element and attach SVG to it
-    const svg = d3.select('#p314159')
+    const svg = d3.select("#d3-container-%%unique-id%%")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
