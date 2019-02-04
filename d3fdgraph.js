@@ -12,30 +12,14 @@ require(["d3"], function(d3) {
     const width = 800;
     const height = 600;
 
-    // data
-    const data = {
-        "nodes" : [
-        {"id": "apple"},
-        {"id": "banana"},
-        {"id": "orange"},
-        {"id": "mango"}
-        ],
-        "links" : [
-        {"source": "apple", "target": "banana", "weight": 1},
-        {"source": "apple", "target": "orange", "weight": 2},
-        {"source": "banana", "target": "orange", "weight":3},
-        {"source": "orange", "target": "mango", "weight":3}
-        ]
-    };
-
-    // extract links and nodes from data
-    const links = data.links;
-    const nodes = data.nodes;
+    // links and nodes data
+    const links = %%links%%;
+    const nodes = %%nodes%%;
 
 
     // create simulation
     const simulation = d3.forceSimulation(nodes)
-    .force("link", d3.forceLink(links).id(d => d.id).distance(d => 50 / d.weight))
+    .force("link", d3.forceLink(links).id(d => d.id).distance(d => 50 / d.%%edge_attribute%%))
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2));
 
@@ -73,25 +57,27 @@ require(["d3"], function(d3) {
 
     // add links to svg element
     const link = svg.append("g")
-            .attr("stroke", "#999")
-            .attr("stroke-opacity", 0.6)
+            .attr("class", "links")
         .selectAll("line")
         .data(links)
         .enter().append("line")
             .attr("stroke-width", d => Math.sqrt(d.weight));
 
     const node = svg.append("g")
-            .attr("stroke", "#aaa")
-            .attr("stroke-width", 1.5)
-        .selectAll("circle")
+            .attr("class", "nodes")
+        .selectAll("g")
         .data(nodes)
-        .enter().append("circle")
-            .attr("r", 5)
-            .attr("fill", "#f00")
+        .enter().append("g");
+
+
+    const circle = node.append("circle")
+            .attr("r", 4.5)
             .call(drag(simulation));
 
-    // add names to nodes
-    node.append("title")
+    // svg text labels for eachnode
+    const label = node.append("text")
+            .attr("dx", 10)
+            .attr("dy", ".35em")
             .text(d => d.id);
 
 
@@ -103,9 +89,13 @@ require(["d3"], function(d3) {
             .attr("x2", d => d.target.x)
             .attr("y2", d => d.target.y);
 
-        node
+        circle
             .attr("cx", d => d.x)
             .attr("cy", d => d.y);
+
+        label
+            .attr("x", d => d.x)
+            .attr("y", d => d.y);
     });
 
 
