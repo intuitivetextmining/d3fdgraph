@@ -19,7 +19,7 @@ require(["d3"], function(d3) {
 
     // create simulation
     const simulation = d3.forceSimulation(nodes)
-    .force("link", d3.forceLink(links).id(d => d.id).distance(d => 50 / d.%%edge_attribute%%))
+    .force("link", d3.forceLink(links).id(d => d.id).distance(d => 10 / d.%%edge_attribute%%))
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2));
 
