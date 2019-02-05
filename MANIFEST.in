@@ -1,4 +1,4 @@
 include README.rst
-include d3fdgraph.html
-include d3fdgraph.js
+include d3fdgraph/d3fdgraph.html
+include d3fdgraph/d3fdgraph.js
 
