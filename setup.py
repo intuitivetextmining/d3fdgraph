@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='d3fdgraph',
-	version='0.1',
+	version='0.2',
 	description='Interactive force-directed graph in a jupyter notebook.',
 	url='https://github.com/intuitivetextmining/d3fdgraph',
 	author='Intuitive Text Mining',
