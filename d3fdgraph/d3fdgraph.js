@@ -12,6 +12,9 @@ require(["d3"], function(d3) {
     const width = 800;
     const height = 600;
 
+    // node radius
+    const radius = 4.5;
+
     // links and nodes data
     const links = %%links%%;
     const nodes = %%nodes%%;
@@ -71,7 +74,8 @@ require(["d3"], function(d3) {
 
 
     const circle = node.append("circle")
-            .attr("r", 4.5)
+            .attr("r", radius)
+            .on("dblclick", d => {d.x = width/2; d.y = height/2;})
             .call(drag(simulation));
 
     // svg text labels for eachnode
@@ -83,15 +87,17 @@ require(["d3"], function(d3) {
 
     // update svg on simulation ticks
     simulation.on("tick", () => {
+        circle
+        // keep within edge of canvas, larger margin on right for text labels
+            .attr("cx", d => (d.x = Math.max(2*radius, Math.min(width - 10*radius, d.x)) ))
+            .attr("cy", d => (d.y = Math.max(2*radius, Math.min(width - 10*radius, d.y)) ));
+
         link
             .attr("x1", d => d.source.x)
             .attr("y1", d => d.source.y)
             .attr("x2", d => d.target.x)
             .attr("y2", d => d.target.y);
 
-        circle
-            .attr("cx", d => d.x)
-            .attr("cy", d => d.y);
 
         label
             .attr("x", d => d.x)
