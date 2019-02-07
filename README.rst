@@ -86,6 +86,10 @@ You can use your pointer to drag nodes around to adjust the graph.
 
 The nodes are labelled with the names of the nodes, as described in the pandas dataframe.
 
+The nodes are constrained from flying off the edge of the canvas.
+
+Double-clicking a node makes it jump to the centre of the canvas, from where it might depart slightly due to the simulated forces.
+
 
 Example Notebook
 ----------------
