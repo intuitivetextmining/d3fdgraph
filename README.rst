@@ -87,6 +87,13 @@ You can use your pointer to drag nodes around to adjust the graph.
 The nodes are labelled with the names of the nodes, as described in the pandas dataframe.
 
 
+Example Notebook
+----------------
+A simple jupyter notebook showing how **d3fdgraph** can be used is here:
+
+* `simple example notebook <https://github.com/intuitivetextmining/d3fdgraph/blob/master/examples/d3fdgraph_simple_test.ipynb>`_
+
+
 Note
 ----
 
