@@ -1,13 +1,93 @@
 d3fdgraph
----------
+=========
 
 Plots an interactive force directed graph in a jupyter notebook, taking data from a dataframe of nodes and link weights.
 
-The dataframe must contain two columns of nodes, and a third column of weights:
- 1. from node
- 2. to node
- 3. link weight
 
-To use (with caution), simply do::
+Why d3fdgraph?
+--------------
 
-    >>> import d3fdgraph
+Working with data using **python** in the **jupyter** notebook provides many options for visualising that data. 
+
+The **pandas** library provides convenient common visualisations, and there's always the venerable **matplotlib** for more bespoke plots. The new **vega-lite** library is enabled by default in jupyterlab.
+
+Sometimes we want to plot the relationships between things as a graph of linked nodes. 
+
+The **networkx** library can plot graphs in a notebook but the plots are static, and only really suitable for smaller data.
+
+Being able to **interactively** adjust graphs really helps explore larger data.
+
+That's what **d3fdgraph** does.
+
+
+Installing d3fdgraph
+--------------------
+
+Installing **d3fdgraph** is easy.
+:: 
+
+ pip install d3fdgraph
+
+This has been tested with Anaconda Python 3.
+
+
+How To Use
+----------
+
+To use **d3fdgraph** in a notebook we import the library.
+::
+
+ import d3fdgraph
+
+
+**d3fdgraph** takes data in the form of a **pandas dataframe**. 
+
+That dataframe must have 3 columns:
+
+ * The first column contains the nodes at the **start** of a link. 
+
+ * The second column contains the nodes at the **end** of a link. 
+
+ * The third column contains a link **weight** number. It must be more than 0. 
+
+The larger the **weight**, the more strongly related the two nodes at each end of this link.
+
+Here is an example dataframe:
+
+=======  ======= ========
+source   target  weight
+=======  ======= ========
+apple    orange  1
+apple    banana  2
+orange   mango   2
+orange   lemon   3
+=======  ======= ========
+
+Each row is a link:
+
+ * The first row is a link between ``apple`` and ``orange``. These two are connected with a weight of 1.
+ * The second row is a link between ``apple`` and ``banana``. These two are more strongly related, with a weight 2.
+ * The fourth row is the strongest link, with weight 3, between ``orange`` and ``lemon``.
+
+The column names don't have to be ``source``, ``target`` and ``weight``. You can have different column names, but it is a good idea to use descriptive names. 
+
+The order of the 3 columns is what matters. **d3fdgraph** will use the first column as the source nodes, the second as the target, and the third as link weights.
+
+To draw an interactive force directed graph of these nodes and links we simply pass this dataframe to the **plot_force_directed_graph()** function.
+::
+
+ d3fdgraph.plot_force_directed_graph(dataframe)
+
+Here is an example of a graph made from different data.
+
+.. image:: https://github.com/intuitivetextmining/d3fdgraph/blob/master/images/d3fdgraph_recipes.gif
+
+You can use your pointer to drag nodes around to adjust the graph.
+
+The nodes are labelled with the names of the nodes, as described in the pandas dataframe.
+
+
+Note
+----
+
+Note that **d3fdgraph** is only useful in a jupyter notebook. It isn't useful in a terminal, and hasn't been tested in other kinds of python notebook.
