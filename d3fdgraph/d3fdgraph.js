@@ -23,7 +23,8 @@ require(["d3"], function(d3) {
     // create simulation
     const simulation = d3.forceSimulation(nodes)
     .force("link", d3.forceLink(links).id(d => d.id).distance(d => 10 / d.%%edge_attribute%%))
-    .force("charge", d3.forceManyBody())
+    .force("charge", d3.forceManyBody().strength(-20))
+    .force('collision', d3.forceCollide().radius(radius))
     .force("center", d3.forceCenter(width / 2, height / 2));
 
     /// dragging nodes
@@ -90,7 +91,7 @@ require(["d3"], function(d3) {
         circle
         // keep within edge of canvas, larger margin on right for text labels
             .attr("cx", d => (d.x = Math.max(2*radius, Math.min(width - 10*radius, d.x)) ))
-            .attr("cy", d => (d.y = Math.max(2*radius, Math.min(width - 10*radius, d.y)) ));
+            .attr("cy", d => (d.y = Math.max(2*radius, Math.min(height - 10*radius, d.y)) ));
 
         link
             .attr("x1", d => d.source.x)
