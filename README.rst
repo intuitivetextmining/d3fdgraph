@@ -80,15 +80,34 @@ To draw an interactive force directed graph of these nodes and links we simply p
 
 Here is an example of a graph made from different data.
 
-.. image:: https://github.com/intuitivetextmining/d3fdgraph/blob/master/images/d3fdgraph_recipes.gif
-
-You can use your pointer to drag nodes around to adjust the graph.
+.. image:: https://github.com/intuitivetextmining/d3fdgraph/blob/master/images/d3fdgraph_recipes.png
 
 The nodes are labelled with the names of the nodes, as described in the pandas dataframe.
 
 The nodes are constrained from flying off the edge of the canvas.
 
+
+Interactivity
+-------------
+
+You can use your pointer to drag nodes around to adjust the graph.
+
 Double-clicking a node makes it jump to the centre of the canvas, from where it might depart slightly due to the simulated forces.
+
+
+Additional Parameters
+---------------------
+
+::
+
+ plot_force_directed_graph(node1_node1_weight, node_radius=3, link_distance=20, collision_scale=4)
+
+You don't have to use the additional parameters, but they might help improve the readability of your graph.
+
+ * **node_radius** is the radius of the circles drawn for each node, default 3
+ * **link_distance** is the length of each link, before divided by the link weight, default 20
+ * **collision_scale** is the multiple of the node radius that excludes other nodes, default 4
+ * **link_width_scale** scales the width of the drawn links with link weight, default is 4
 
 
 Example Notebook
