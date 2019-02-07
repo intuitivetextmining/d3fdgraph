@@ -13,7 +13,13 @@ require(["d3"], function(d3) {
     const height = 600;
 
     // node radius
-    const radius = 4.5;
+    const node_radius = %%noderadius%%;
+    // link distance before weight is applied
+    const link_distance = %%linkdistance%%;
+    // collision exclusion sclae
+    const collision_scale = %%collisionscale%%;
+    // link with scale
+    const link_width_scale = %%linkwidthscale%%;
 
     // links and nodes data
     const links = %%links%%;
@@ -22,9 +28,9 @@ require(["d3"], function(d3) {
 
     // create simulation
     const simulation = d3.forceSimulation(nodes)
-    .force("link", d3.forceLink(links).id(d => d.id).distance(d => 10 / d.%%edge_attribute%%))
+    .force("link", d3.forceLink(links).id(d => d.id).distance(d => link_distance / d.%%edge_attribute%%))
     .force("charge", d3.forceManyBody().strength(-20))
-    .force('collision', d3.forceCollide().radius(radius))
+    .force('collision', d3.forceCollide().radius(collision_scale * node_radius))
     .force("center", d3.forceCenter(width / 2, height / 2));
 
     /// dragging nodes
@@ -65,7 +71,7 @@ require(["d3"], function(d3) {
         .selectAll("line")
         .data(links)
         .enter().append("line")
-            .attr("stroke-width", d => Math.sqrt(d.weight));
+            .style("stroke-width", d => Math.sqrt(link_width_scale*d.%%edge_attribute%%));
 
     const node = svg.append("g")
             .attr("class", "nodes")
@@ -75,7 +81,7 @@ require(["d3"], function(d3) {
 
 
     const circle = node.append("circle")
-            .attr("r", radius)
+            .attr("r", node_radius)
             .on("dblclick", d => {d.x = width/2; d.y = height/2;})
             .call(drag(simulation));
 
@@ -90,8 +96,8 @@ require(["d3"], function(d3) {
     simulation.on("tick", () => {
         circle
         // keep within edge of canvas, larger margin on right for text labels
-            .attr("cx", d => (d.x = Math.max(2*radius, Math.min(width - 10*radius, d.x)) ))
-            .attr("cy", d => (d.y = Math.max(2*radius, Math.min(height - 10*radius, d.y)) ));
+            .attr("cx", d => (d.x = Math.max(2*node_radius, Math.min(width - 2*node_radius - 10*d.id.length, d.x)) ))
+            .attr("cy", d => (d.y = Math.max(2*node_radius, Math.min(height - 2*node_radius, d.y)) ));
 
         link
             .attr("x1", d => d.source.x)

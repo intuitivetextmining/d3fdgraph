@@ -7,7 +7,7 @@ import networkx.readwrite.json_graph
 import random
 
 
-def plot_force_directed_graph(node1_node1_weight):
+def plot_force_directed_graph(node1_node1_weight, node_radius=3, link_distance=20, collision_scale=4, link_width_scale=4):
 
     # column names for node source and target, and edge attributes
     node_source_name = node1_node1_weight.columns.values[0]
@@ -35,6 +35,12 @@ def plot_force_directed_graph(node1_node1_weight):
     # replace placeholder in both html and js templates
     html = html.replace('%%unique-id%%', random_id_string)
     js_code = js_code.replace('%%unique-id%%', random_id_string)
+
+    # substitute configuration values
+    js_code = js_code.replace('%%noderadius%%', str(node_radius))
+    js_code = js_code.replace('%%linkdistance%%', str(link_distance))
+    js_code = js_code.replace('%%collisionscale%%', str(collision_scale))
+    js_code = js_code.replace('%%linkwidthscale%%', str(link_width_scale))
 
     # substitute links and data
     js_code = js_code.replace('%%links%%', str(graph_json_links))
