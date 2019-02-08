@@ -8,7 +8,7 @@ HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.rst").read_text()
 
 setup(name='d3fdgraph',
-	version='0.32',
+	version='0.33',
 	description='Interactive force-directed graph in a jupyter notebook.',
 	long_description=README,
     long_description_content_type="text/x-rst",

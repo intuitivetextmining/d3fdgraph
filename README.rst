@@ -80,7 +80,7 @@ To draw an interactive force directed graph of these nodes and links we simply p
 
 Here is an example of a graph made from different data.
 
-.. image:: https://github.com/intuitivetextmining/d3fdgraph/blob/master/images/d3fdgraph_recipes.png
+.. image:: https://github.com/intuitivetextmining/d3fdgraph/blob/master/images/d3fdgraph_recipes.gif
 
 The nodes are labelled with the names of the nodes, as described in the pandas dataframe.
 
