@@ -121,3 +121,7 @@ Note
 ----
 
 Note that **d3fdgraph** is only useful in a jupyter notebook. It isn't useful in a terminal, and hasn't been tested in other kinds of python notebook.
+
+**d3graph** has been tested to work in the Anaconda Python's jupyter notebook, and also the mybinder instances too. Recently it has been made to work in Google's Colab notebook environment. 
+
+JupyterLab is movign away from allowing javascript in notebook cells, and encouraging develpment of extensions insted. Since JupyterLab is not ready for production, and not widely adopted yet, the focus here is on Jupyter and Colab notebooks.
